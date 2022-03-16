@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { Search } from './components/search';
 
+const mapBoxToken = `pk.eyJ1IjoicHVyZXZzdXJlbjA0IiwiYSI6ImNsMHN6ZmU5bzAxazAzYnBlbTNsODl2N2YifQ.w26x8IIYootMucbrnItv0g`;
 function App() {
+
+  const getMapBox = async (searchText) => {
+    const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${mapBoxToken}`);
+    console.log(response);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1>Hello World!</h1>
-      </header>
+    <div className="App flex just-center">
+      <Search getMapBox = {getMapBox}></Search>
     </div>
   );
 }
